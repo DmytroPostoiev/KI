@@ -513,17 +513,8 @@ public class ChatbotGUI extends JFrame {
                 "Smartphones sind praktisch, aber vergiss nicht, auch mal offline zu sein.",
                 "Künstliche Intelligenz ist ein spannendes Zukunftsthema."
         ));
-        knowledgeBase.put("gesundheit", Arrays.asList(
-                "Eine ausgewogene Ernährung ist entscheidend für deine Gesundheit.",
-                "Regelmäßige Bewegung stärkt das Immunsystem und verbessert die Stimmung.",
-                "Achte auf genügend Schlaf – er ist der Schlüssel zu mehr Energie und Wohlbefinden.",
-                "Wasser ist lebenswichtig – trinke genug, um deinen Körper hydriert zu halten.",
-                "Stressbewältigung ist genauso wichtig wie körperliche Fitness.",
-                "Hör auf deinen Körper und gönn dir Pausen, wenn du sie brauchst.",
-                "Zucker in Maßen konsumieren kann helfen, langfristig gesund zu bleiben.",
-                "Frische Luft und Sonnenlicht sind natürliche Stimmungsaufheller.",
-                "Vermeide den übermäßigen Konsum von Fertigprodukten – sie enthalten oft ungesunde Zusatzstoffe."
-        ));
+
+
         knowledgeBase.put("psychologie", Arrays.asList(
                 "Selbstreflexion ist ein wichtiger Schritt, um mehr über sich selbst zu lernen.",
                 "Unsere Gedanken beeinflussen unsere Gefühle – achte auf die positive Denkweise.",
