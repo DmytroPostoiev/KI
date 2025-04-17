@@ -525,6 +525,41 @@ public class ChatbotGUI extends JFrame {
                 "Kognitive Verzerrungen können unsere Wahrnehmung trüben – hinterfrage deine Gedanken.",
                 "Der Mensch ist ein soziales Wesen – gute Beziehungen sind ein Grundpfeiler für Glück."
         ));
+        knowledgeBase.put("tcp/ip", Arrays.asList(
+                "Das TCP/IP-Modell ist ein Netzwerkarchitekturmodell, das die Kommunikation zwischen verschiedenen Netzwerken standardisiert und Interoperabilität ermöglicht.",
+                "Die vier Schichten des TCP/IP-Modells sind: Anwendungsschicht, Transportschicht, Internet-Schicht und Netzwerkschicht.",
+                "Die Anwendungsschicht ermöglicht den Zugriff auf Netzwerkdienste für Anwendungen und umfasst Protokolle wie HTTP, FTP und SMTP.",
+                "Die Transportschicht sorgt für die zuverlässige Übertragung von Daten zwischen Hosts. Die Hauptprotokolle sind TCP (verbindungsorientiert) und UDP (verbindungslos).",
+                "Die Internet-Schicht ist verantwortlich für die Adressierung und das Routing von Paketen. Das wichtigste Protokoll ist IP (Internet Protocol).",
+                "Die Netzwerkschicht überträgt Datenpakete und verwaltet die logische Adressierung. Protokolle sind IP, ICMP und ARP.",
+                "TCP gewährleistet zuverlässige Datenübertragung durch Sequenznummern, Bestätigungen (ACKs) und Fehlererkennung.",
+                "Ein IP-Paket ist die grundlegende Einheit der Datenübertragung im Internet, bestehend aus einem Header und einem Payload.",
+                "Die Adressierung erfolgt über IP-Adressen, wobei IPv4 32-Bit-Adressen und IPv6 128-Bit-Adressen verwendet."
+        ));
+        knowledgeBase.put("netzwerkgrundlagen", Arrays.asList(
+                "TCP/IP: Was sind die Hauptschichten des TCP/IP-Modells?",
+                "TCP/IP: Erkläre den Unterschied zwischen TCP und UDP.",
+                "HTTP: Was sind die grundlegenden Funktionen des HTTP-Protokolls?",
+                "HTTP: Was ist der Unterschied zwischen HTTP und HTTPS?",
+                "DNS: Wie funktioniert der Domain Name System (DNS)?",
+                "DNS: Was sind die verschiedenen Arten von DNS-Einträgen (A, CNAME, MX)?",
+                "TCP/IP: Was sind Ports und was ist ihre Rolle im Netzwerkverkehr?",
+                "HTTP: Wie funktioniert die Anfrage-Antwort-Architektur von HTTP?",
+                "DNS: Was ist eine DNS-Anfrage und wie wird sie verarbeitet?",
+                "TCP/IP: Wie sorgt TCP für Zuverlässigkeit bei der Datenübertragung?"
+        ));
+        knowledgeBase.put("fragen", Arrays.asList(
+                "Was sind die Unterschiede zwischen den verschiedenen Programmierparadigmen?",
+                "Erkläre die Prinzipien der objektorientierten Programmierung.",
+                "Was ist der Unterschied zwischen einem Compiler und einem Interpreter?",
+                "Was sind die Vorteile von Agile und Scrum?",
+                "Wie funktioniert eine Datenbank und welche Arten von Datenbanken gibt es?",
+                "Was ist Cloud Computing und welche Modelle gibt es?",
+                "Erkläre den Unterschied zwischen REST und SOAP.",
+                "Wie sicherst du deine Anwendung gegen SQL-Injection?",
+                "Was sind die Prinzipien von Software-Design-Patterns?",
+                "Wie gehst du mit Versionierung in einem Projekt um?"
+        ));
         knowledgeBase.put("geschichte", Arrays.asList(
                 "Die Geschichte wiederholt sich – wir können viel aus der Vergangenheit lernen.",
                 "Jede Kultur hat ihre eigenen einzigartigen Geschichten und Traditionen.",
