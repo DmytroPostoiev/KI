@@ -17,16 +17,16 @@ public class ChatbotGUI extends JFrame {
     private JButton sendButton;
     private JScrollPane scrollPane;
 
-    private String botName;
+    private final String botName;
     private Map<String, List<String>> knowledgeBase;
     private Map<String, String> personalResponses;
-    private Random random;
+    private final Random random;
     private List<String> greetings;
     private List<String> farewells;
     private List<String> unknownResponses;
     private List<String> commonQuestions;
     private int mood; // 0-10, 0 = schlecht gelaunt, 10 = sehr gut gelaunt
-    public JLabel timerLabel ;
+    public JLabel timerLabel = new JLabel("Timer: 02:00"); // Initialisierung mit Text
     private JPanel chatPanel;
 
 
@@ -78,7 +78,9 @@ public class ChatbotGUI extends JFrame {
         inputField = new JTextField();
         inputField.setFont(new Font("Transitional", Font.PLAIN, 18));
         inputField.setForeground(Color.BLACK);
-        inputField.addActionListener(e -> sendMessage());
+        inputField.addActionListener((ActionEvent e) -> {
+            sendMessage();
+        });
 
 
 
@@ -114,10 +116,14 @@ public class ChatbotGUI extends JFrame {
         setLocationRelativeTo(null);
 
         // Timer-Label
-        JLabel timerLabel = new JLabel(" ");
+        JLabel timerLabel = new JLabel("Timer: 02:00");
         timerLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
         timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         timerLabel.setForeground(new Color(0, 128, 0)); // Grün
+        timerLabel.setOpaque(true); // Hintergrundfarbe anzeigen
+        timerLabel.setBackground(Color.WHITE); // Hintergrundfarbe auf Weiß setzen
+        timerLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2)); // Rahmen hinzufügen
+        timerLabel.setPreferredSize(new Dimension(200, 50)); // Bevorzugte Größe festlegen
 
         // Chat-Panel für Bubbles
         chatArea = new JTextArea();
@@ -148,6 +154,17 @@ public class ChatbotGUI extends JFrame {
         add(timerLabel, BorderLayout.NORTH); // <--- Timer oben einfügen!
         add(scrollPane, BorderLayout.CENTER);
         add(inputPanel, BorderLayout.SOUTH);
+
+// Optional: Hinzufügen eines Status-Labels unter dem Timer
+        JLabel statusLabel = new JLabel("Bereit", SwingConstants.CENTER);
+        statusLabel.setFont(new Font("SansSerif", Font.ITALIC, 16));
+        statusLabel.setForeground(Color.BLUE);
+        add(statusLabel, BorderLayout.SOUTH); // Optional: Status-Label hinzufügen
+
+// Optional: Hinzufügen eines leeren Panels für bessere Trennung
+        JPanel spacerPanel = new JPanel();
+        spacerPanel.setPreferredSize(new Dimension(0, 10)); // Abstand hinzufügen
+        add(spacerPanel, BorderLayout.SOUTH);
 
         // Icon hinzufügen (optional)
         try {
@@ -206,23 +223,35 @@ public class ChatbotGUI extends JFrame {
             sendButton.setEnabled(false);
             return;
         }
-
-        // Wenn der Benutzer "timer" eingibt
+// Wenn der Benutzer "timer" eingibt
         if (userMessage.equalsIgnoreCase("timer 2 min")) {
-
             addMessage("Der Timer läuft: 2:00 Minuten verbleiben.", true);
             inputField.setEnabled(false);
             sendButton.setEnabled(false);
 
-            final int[] secondsLeft = {120}; // 2 Minuten = 120 Sekunden
-
-            timerLabel.setText(String.format("Timer: %02d:", secondsLeft[0]));
-            timerLabel.setForeground(Color.BLACK);
+            // Initialisierung mit 120 Sekunden (2 Minuten)
+            int[] secondsLeft = {120}; // 120 Sekunden
+            timerLabel.setText(String.format("Timer: %02d:%02d", secondsLeft[0] / 60, secondsLeft[0] % 60));
             timerLabel.setForeground(new Color(0, 128, 0)); // Grün
 
-            Timer countdownTimer = getCountdownTimer(secondsLeft);
-            countdownTimer.start();
+            // Timer erstellen und initialisieren
+            Timer countdownTimer = new Timer(1000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (secondsLeft[0] > 0) {
+                        secondsLeft[0]--; // Sekunde reduzieren
+                        timerLabel.setText(String.format("Timer: %02d:%02d", secondsLeft[0] / 60, secondsLeft[0] % 60));
+                    } else {
+                        timerLabel.setText("Timer: 00:00");
+                        addMessage("Die Zeit ist abgelaufen. Das Programm wird beendet.", true);
+                        ((Timer) e.getSource()).stop(); // Timer stoppen
+                        // Nach 1 Sekunde das Programm schließen
+                        new Timer(1000, ev -> System.exit(0)).start();
+                    }
+                }
+            });
 
+            countdownTimer.start(); // Timer starten
             return;
         }
 
@@ -257,10 +286,11 @@ public class ChatbotGUI extends JFrame {
         countdownTimer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                secondsLeft[0]--;
-                int min = secondsLeft[0] / 60;
-                int sec = secondsLeft[0] % 60;
+                // Überprüfe, ob der Timer noch läuft
                 if (secondsLeft[0] > 0) {
+                    secondsLeft[0]--; // Sekunde reduzieren
+                    int min = secondsLeft[0] / 60;
+                    int sec = secondsLeft[0] % 60;
                     // Timer läuft und zeigt die verbleibende Zeit an
                     timerLabel.setText(String.format("Timer: %d:%02d", min, sec));
                 } else {
@@ -273,7 +303,8 @@ public class ChatbotGUI extends JFrame {
                 }
             }
         });
-        countdownTimer.setInitialDelay(1000);  // Verzögerung bevor der Timer startet
+        countdownTimer.setInitialDelay(1000); // Verzögerung bevor der Timer startet
+        countdownTimer.start(); // Timer starten
         return countdownTimer;
     }
 
@@ -727,4 +758,11 @@ public class ChatbotGUI extends JFrame {
         knowledgeBase.put(keyword, responses);
     }
 
+    public JPanel getChatPanel() {
+        return chatPanel;
+    }
+
+    public void setChatPanel(JPanel chatPanel) {
+        this.chatPanel = chatPanel;
+    }
 }
